@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MySQL备份管理系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/css/bootstrap.css" rel="stylesheet" media="screen">
+  </head>
+<body>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<h3 class="text-center">
+				MySQL备份管理系统
+			</h3>
+			<form action="/bkmysql/"  class="form-search" method="POST">{% csrf_token %}
+                                <br>result: <input type="text" name="result" /><br />
+                    <!--  <br> task_id: <input type="text" name="task_id" /><br />   -->
+ 
+  <input type="submit" value="Search" />
+			</form>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>
+							编号
+						</th>
+						<th>
+						    任务名称
+						</th>
+						<th>
+							任务ID
+						</th>
+						<th>
+							备份主机IP
+						</th>					
+						<th>
+							任务开始时间
+						</th>
+						<th>
+							任务完成时间
+						</th>
+						<th>
+							任务状态
+						</th>
+						<th>
+							任务结果
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+				    {% for bkmysql in bkmysql %}
+					{% if  bkmysql.result == 'success' %}
+					<tr  class="success">
+					{% else %}
+					<tr  class="error">
+					{% endif %}
+						<td>
+					{{ bkmysql.id  }}
+						</td>
+						<td>
+						{{ bkmysql.task_name }}
+						</td>
+						<td>
+						{{ bkmysql.task_id }}
+						</td>
+						<td>
+						{{ bkmysql.host_ip }}
+						</td>
+						<td>
+						{{ bkmysql.start_date }}
+						</td>
+						<td>
+						{{ bkmysql.end_date }}
+						</td>
+						<td>
+						{{ bkmysql.task_status }}
+						</td>
+						<td>
+						{{ bkmysql.result }}
+						</td>
+					</tr>
+                                 {% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+</body>
+</html>
